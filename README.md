@@ -6,7 +6,7 @@ para docentes que se hace cada semestre.
 # TODOS
 
 - [x] Terminar el popup de la extension
-- [ ] Tener las distintas imagenes para distintos displays
+- [x] Tener las distintas imagenes para distintos displays
 - [ ] Subir la extension a los distintos navegadores
 - [ ] Subir ejemplos
 
