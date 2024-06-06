@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Fill form",
   "version": "1.0",
-  "description": "A browser extension to fill forms automatically",
+  "description": "Una extension web para llenar formularios de evaluacion docente para los alumnos del IPN",
   "permissions": ["activeTab", "scripting"],
   "action": {
     "default_popup": "index.html"
