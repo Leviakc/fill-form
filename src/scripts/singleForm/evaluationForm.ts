@@ -1,13 +1,14 @@
-import {
-  checkLists,
-  inputSpanValues,
-  selects,
-  tds,
-} from "../consts/domElements";
 import { main } from "../content.js";
+import { getDomElements } from "../utils/getDomElements.js";
 import { fillFormSaes } from "./fillFormSaes";
 
 export const evaluationForm = () => {
+  if (document.querySelector("#select-values-form")) {
+    return;
+  }
+
+  const { tds } = getDomElements(document);
+
   let singleFormTable: HTMLTableCellElement =
     "" as unknown as HTMLTableCellElement;
 
@@ -18,7 +19,11 @@ export const evaluationForm = () => {
   });
 
   const submitButton = document.querySelector("input[type=submit]");
-  submitButton?.setAttribute("class", "extension-form__button");
+  const newSubmitButton = submitButton?.cloneNode(true) as Element;
+
+  submitButton?.remove();
+  newSubmitButton?.setAttribute("class", "extension-form__button");
+
   const formElement = submitButton?.closest("form");
 
   const newTr = document.createElement("tr");
@@ -33,24 +38,23 @@ export const evaluationForm = () => {
         <option value="2">A VECES</option>
         <option value="3">SIEMPRE</option>
       </select>
-        ${submitButton?.outerHTML}
+        ${newSubmitButton.outerHTML}
       </div>
     </td>
     `;
 
   singleFormTable.parentElement?.insertAdjacentElement("afterend", newTr);
+
   const select = document.getElementById("select-values-form");
   select?.addEventListener("change", fillFormSaes);
   formElement?.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    formElement.submit();
+    document.querySelector("#newTrId")?.remove();
+
     setTimeout(() => {
       main();
-
-      checkLists.length = 0;
-      selects.length = 0;
-      inputSpanValues.length = 0;
     }, 1500);
+    formElement.submit();
   });
 };

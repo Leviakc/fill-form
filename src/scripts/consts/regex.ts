@@ -1,2 +1,2 @@
-export const califica = /Alumnos\/Evaluacion_Docente\/Califica/;
-export const evaluacion = /Alumnos\/Evaluacion_Docente\/evaluacion/;
+export const CALIFICA = /Alumnos\/Evaluacion_Docente\/Califica/;
+export const EVALUACION = /Alumnos\/Evaluacion_Docente\/evaluacion/;

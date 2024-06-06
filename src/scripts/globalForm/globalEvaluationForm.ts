@@ -1,12 +1,16 @@
-import {
-  fillGlobalEvaluationForms,
-  type ValueCheck,
-} from "./fillGlobalEvaluationForms";
+import type { ValueCheck } from "../utils/changeInputValues";
+import { fillGlobalEvaluationForms } from "./fillGlobalEvaluationForms";
 
 export const globalEvaluationForm = () => {
+  if (document.querySelector("#select-values-forms")) {
+    return;
+  }
+
   const multipleFormTable = document.querySelectorAll("th")[0].closest("table");
   const imgs = multipleFormTable?.querySelectorAll("img");
   const links: string[] = [];
+
+  if (!imgs) return;
 
   imgs?.forEach((img) => {
     const link = img.parentElement?.getAttribute("href")!;
@@ -35,17 +39,16 @@ export const globalEvaluationForm = () => {
   multipleFormTable?.insertAdjacentElement("beforebegin", newDiv);
 
   const buttonSubmitt = document.querySelector(".extension-form__button");
+  const select = document.getElementById(
+    "select-values-forms",
+  ) as HTMLSelectElement;
   buttonSubmitt?.addEventListener("click", (e) => {
     e.preventDefault();
-
-    const select = document.getElementById(
-      "select-values-forms",
-    ) as HTMLSelectElement;
-    const value = select.value;
+    const value = select.value as ValueCheck;
 
     links.forEach((link) => {
       if (value === "") return;
-      fillGlobalEvaluationForms(link, value as ValueCheck);
+      fillGlobalEvaluationForms(link, value);
     });
   });
 };
