@@ -1,0 +1,36 @@
+body {
+  background-color: #f0f0f0;
+}
+
+.extension-form__div {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.extension-form__p {
+  display: inline;
+  font-weight: bold;
+  font-size: 1.325rem;
+}
+
+.extension-form__select {
+  background-color: #ff9900;
+  /*background-color: red;*/
+  color: #222;
+}
+
+.extension-form__button {
+  background-color: #ff9900;
+  color: #222;
+  border: none;
+  padding: 0.2rem 0.4rem;
+  cursor: pointer;
+}
+
+.extension-form__button:hover {
+  background-color: #ff8500;
+}
+
+.m-2 {
+  margin: 2rem;
+}
