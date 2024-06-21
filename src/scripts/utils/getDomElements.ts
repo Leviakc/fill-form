@@ -1,3 +1,10 @@
+import { ValueCheck } from "./changeInputValues";
+import { getLocalStorage, setLocalStorage } from "./setLocalStorage";
+
+export type Link = { link: string; value: ValueCheck };
+
+export type Links = Link[];
+
 export const getDomElements = (doc: Document) => {
   const tds = doc.querySelectorAll("td");
   const selects = doc.querySelectorAll("select");
@@ -24,4 +31,32 @@ export const getFormCheckLists = (tds: NodeListOf<HTMLTableCellElement>) => {
     }
   });
   return checkLists;
+};
+
+export const getFormLinks = (
+  table: HTMLTableElement | null,
+  value: ValueCheck,
+) => {
+  const imgs = table?.querySelectorAll("img");
+  const links: Links = [];
+
+  imgs?.forEach((img) => {
+    const link = img.parentElement?.getAttribute("href")!;
+
+    const url =
+      window.location.href.split("/").slice(0, -1).join("/") + "/" + link;
+    const urlEncoded = encodeURI(url);
+    const formObj = {
+      link: urlEncoded,
+      value,
+    };
+    links.push(formObj);
+  });
+
+  setLocalStorage(links);
+  const linksArray = getLocalStorage();
+
+  return {
+    linksArray,
+  };
 };

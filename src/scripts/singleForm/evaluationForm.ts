@@ -1,11 +1,16 @@
-import { main } from "../content.js";
-import { getDomElements } from "../utils/getDomElements.js";
-import { fillFormSaes } from "./fillFormSaes";
+import { handleAutoSelection } from "../globalForm/handleAutoFormSelection.js";
+import { Links, getDomElements } from "../utils/getDomElements.js";
+import {
+  getLocalStorage,
+  removeLocalStorageItem,
+} from "../utils/setLocalStorage.js";
+import { createSelectionElement } from "../utils/newFormDomElement.js";
+import { replaceSubmitButton } from "../utils/replaceSubmitButton.js";
+import { handleFormSelection } from "./handleFormSelection.js";
 
 export const evaluationForm = () => {
-  if (document.querySelector("#select-values-form")) {
-    return;
-  }
+  const storageLinks: Links = getLocalStorage();
+  // console.log(storageLinks);
 
   const { tds } = getDomElements(document);
 
@@ -19,42 +24,34 @@ export const evaluationForm = () => {
   });
 
   const submitButton = document.querySelector("input[type=submit]");
-  const newSubmitButton = submitButton?.cloneNode(true) as Element;
-
-  submitButton?.remove();
-  newSubmitButton?.setAttribute("class", "extension-form__button");
+  const newSubmitButton = replaceSubmitButton(submitButton) as HTMLInputElement;
 
   const formElement = submitButton?.closest("form");
 
-  const newTr = document.createElement("tr");
+  const newElement = createSelectionElement("tr", newSubmitButton);
 
-  newTr.innerHTML = `
-    <td colspan="3" id="newTrId">
-      <div class="extension-form__div">
-      <p class="extension-form__p">Llenar formulario con: </p>
-      <select name="select" class="extension-form__select" id="select-values-form">
-        <option value="" selected style=""></option>
-        <option value="1">NUNCA</option>
-        <option value="2">A VECES</option>
-        <option value="3">SIEMPRE</option>
-      </select>
-        ${newSubmitButton.outerHTML}
-      </div>
-    </td>
-    `;
+  if (!document.querySelector("#select-values-form")) {
+    singleFormTable.parentElement?.insertAdjacentElement(
+      "afterend",
+      newElement,
+    );
+  }
 
-  singleFormTable.parentElement?.insertAdjacentElement("afterend", newTr);
+  if (storageLinks.length > 0) {
+    const storageLink = storageLinks.at(0);
+    handleAutoSelection(storageLink!);
+    removeLocalStorageItem(storageLink!);
+    // newSubmitButton.click()
+  }
 
   const select = document.getElementById("select-values-form");
-  select?.addEventListener("change", fillFormSaes);
+
+  select?.addEventListener("change", handleFormSelection);
   formElement?.addEventListener("submit", (e) => {
     e.preventDefault();
 
     document.querySelector("#newTrId")?.remove();
 
-    setTimeout(() => {
-      main();
-    }, 1500);
     formElement.submit();
   });
 };
