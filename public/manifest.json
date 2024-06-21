@@ -18,6 +18,10 @@
       "run_at": "document_idle"
     }
   ],
+  "host_permissions": [
+    "*://*/Alumnos/Evaluacion_Docente/*",
+    "*://*/Alumnos/Informacion_semestral/calificaciones*"
+  ],
   "icons": {
     "16": "images/asistencia-16.png",
     "32": "images/asistencia-32.png",

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2016",
     "useDefineForClassFields": true,
-    "types": ["node"],
+    "types": ["node", "chrome"],
     "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,

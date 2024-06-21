@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/chrome": "^0.0.268",
     "@types/node": "^20.14.1",
     "chrome-types": "^0.1.286",
     "typescript": "^5.2.2",
