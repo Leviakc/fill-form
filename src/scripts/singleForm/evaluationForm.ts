@@ -24,9 +24,8 @@ export const evaluationForm = () => {
   });
 
   const submitButton = document.querySelector("input[type=submit]");
-  const newSubmitButton = replaceSubmitButton(submitButton) as HTMLInputElement;
-
   const formElement = submitButton?.closest("form");
+  const newSubmitButton = replaceSubmitButton(submitButton) as HTMLInputElement;
 
   const newElement = createSelectionElement("tr", newSubmitButton);
 
@@ -41,17 +40,17 @@ export const evaluationForm = () => {
     const storageLink = storageLinks.at(0);
     handleAutoSelection(storageLink!);
     removeLocalStorageItem(storageLink!);
-    // newSubmitButton.click()
+    newSubmitButton.click();
   }
 
   const select = document.getElementById("select-values-form");
 
   select?.addEventListener("change", handleFormSelection);
+
   formElement?.addEventListener("submit", (e) => {
     e.preventDefault();
-
-    document.querySelector("#newTrId")?.remove();
-
+    // Avoid the value of the created select element to be sent
+    document.querySelector("#td-select-saes-form")?.remove();
     formElement.submit();
   });
 };
