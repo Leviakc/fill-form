@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Fill form",
-  "version": "1.0",
+  "name": "Saes fill-form",
+  "version": "1.0.1",
   "description": "Una extension web para llenar formularios de evaluacion docente para los alumnos del IPN",
   "action": {
     "default_popup": "index.html"
