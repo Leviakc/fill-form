@@ -1,16 +1,15 @@
 import { handleAutoSelection } from "../globalForm/handleAutoFormSelection.js";
-import { Links, getDomElements } from "../utils/getDomElements.js";
+import { getDomElements } from "../utils/getDomElements.js";
 import {
   getLocalStorage,
   removeLocalStorageItem,
-} from "../utils/setLocalStorage.js";
+} from "../utils/localStorage.js";
 import { createSelectionElement } from "../utils/newFormDomElement.js";
 import { replaceSubmitButton } from "../utils/replaceSubmitButton.js";
 import { handleFormSelection } from "./handleFormSelection.js";
 
 export const evaluationForm = () => {
-  const storageLinks: Links = getLocalStorage();
-  // console.log(storageLinks);
+  const storageLinks = getLocalStorage();
 
   const { tds } = getDomElements(document);
 
@@ -24,7 +23,6 @@ export const evaluationForm = () => {
   });
 
   const submitButton = document.querySelector("input[type=submit]");
-  const formElement = submitButton?.closest("form");
   const newSubmitButton = replaceSubmitButton(submitButton) as HTMLInputElement;
 
   const newElement = createSelectionElement("tr", newSubmitButton);
@@ -40,17 +38,15 @@ export const evaluationForm = () => {
     const storageLink = storageLinks.at(0);
     handleAutoSelection(storageLink!);
     removeLocalStorageItem(storageLink!);
+
+    const newLocalStorage = getLocalStorage();
+    if (newLocalStorage.length > 0) {
+      chrome.runtime.sendMessage({ action: "data", data: newLocalStorage[0] });
+    }
     newSubmitButton.click();
   }
 
   const select = document.getElementById("select-values-form");
 
   select?.addEventListener("change", handleFormSelection);
-
-  formElement?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    // Avoid the value of the created select element to be sent
-    document.querySelector("#td-select-saes-form")?.remove();
-    formElement.submit();
-  });
 };

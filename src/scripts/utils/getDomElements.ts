@@ -1,5 +1,5 @@
 import { ValueCheck } from "./changeInputValues";
-import { getLocalStorage, setLocalStorage } from "./setLocalStorage";
+import { getLocalStorage, setLocalStorage } from "./localStorage";
 
 export type Link = { link: string; value: ValueCheck };
 

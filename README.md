@@ -12,5 +12,5 @@ para docentes que se hace cada semestre.
 
 > [!NOTE]
 > Por ver 👇
-- [ ] Hacer que la extension recuerde las respuestas de distintos navegadores
 
+- [ ] Hacer que la extension recuerde las respuestas de distintos navegadores

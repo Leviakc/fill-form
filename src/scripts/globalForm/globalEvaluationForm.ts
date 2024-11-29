@@ -1,13 +1,12 @@
 import type { ValueCheck } from "../utils/changeInputValues";
 import { getFormLinks } from "../utils/getDomElements";
-import { getLocalStorage } from "../utils/setLocalStorage";
+import { getLocalStorage } from "../utils/localStorage";
 import { createSelectionElement } from "../utils/newFormDomElement";
 import { handleAutoFormSelection } from "./handleAutoFormSelection";
 
 export const globalEvaluationForm = () => {
   const storageLinks = getLocalStorage();
 
-  // console.log(storageLinks);
   if (storageLinks.length > 0) {
     handleAutoFormSelection(storageLinks.at(0)!);
   }
@@ -34,7 +33,6 @@ export const globalEvaluationForm = () => {
     const { linksArray } = getFormLinks(multipleFormTable, value);
 
     if (linksArray.length === 0) return;
-    // console.log(linksArray.at(0));
     const link = linksArray.at(0);
     if (!link) return;
     handleAutoFormSelection(link);
