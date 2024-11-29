@@ -1,17 +1,4 @@
 // background.js
-chrome.webNavigation.onCompleted.addListener((details) => {
-  if (details.url.match(/\/Alumnos\/Evaluacion_Docente\//)) {
-    chrome.scripting.executeScript({
-      files: ["content.js"],
-      target: { tabId: details.tabId },
-    });
-    chrome.scripting.insertCSS({
-      files: ["content.css"],
-      target: { tabId: details.tabId },
-    });
-  }
-});
-
 chrome.runtime.onMessage.addListener((message) => {
   if (message.action === "data") {
     setTimeout(() => {
