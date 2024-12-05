@@ -1,22 +1,31 @@
-import { Link, Links } from "./getDomElements";
+import type { Link, Links } from "./getDomElements";
 
-export const getLocalStorage = () => {
-  const saesLinks = localStorage.getItem("saes-forms");
-  return saesLinks ? (JSON.parse(saesLinks) as Links) : [];
+type StorageName = "saes-forms" | "forms-link";
+
+export const getLocalStorage = (storageName: StorageName = "saes-forms") => {
+  const saesLinks = localStorage.getItem(storageName);
+  return saesLinks ? JSON.parse(saesLinks) : [];
 };
 
-export const setLocalStorage = (links: Links) => {
-  localStorage.setItem("saes-forms", JSON.stringify(links));
+export const setLocalStorage = (
+  links: Links,
+  storageName: StorageName = "saes-forms",
+) => {
+  localStorage.setItem(storageName, JSON.stringify(links));
 };
 
 export const removeLocalStorageItem = (currentItem: Link) => {
-  const items = getLocalStorage();
+  const items = getLocalStorage() as Links;
 
   if (items.length === 1) {
-    localStorage.removeItem("saes-forms");
+    removeLocalStorage("saes-forms");
     return;
   }
 
   const newLinks = items.filter((item) => item.link !== currentItem.link);
   setLocalStorage(newLinks);
+};
+
+export const removeLocalStorage = (storageName: StorageName) => {
+  localStorage.removeItem(storageName);
 };

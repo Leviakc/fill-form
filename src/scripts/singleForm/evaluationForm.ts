@@ -2,6 +2,7 @@ import { handleAutoSelection } from "../globalForm/handleAutoFormSelection.js";
 import { getDomElements } from "../utils/getDomElements.js";
 import {
   getLocalStorage,
+  removeLocalStorage,
   removeLocalStorageItem,
 } from "../utils/localStorage.js";
 import { createSelectionElement } from "../utils/newFormDomElement.js";
@@ -10,6 +11,10 @@ import { handleFormSelection } from "./handleFormSelection.js";
 
 export const evaluationForm = () => {
   const storageLinks = getLocalStorage();
+  const formLink = getLocalStorage("forms-link");
+  let submitButton = null;
+  let newSubmitButton = null;
+  let newElement = null;
 
   const { tds } = getDomElements(document);
 
@@ -22,12 +27,11 @@ export const evaluationForm = () => {
     }
   });
 
-  const submitButton = document.querySelector("input[type=submit]");
-  const newSubmitButton = replaceSubmitButton(submitButton) as HTMLInputElement;
-
-  const newElement = createSelectionElement("tr", newSubmitButton);
-
   if (!document.querySelector("#select-values-form")) {
+    submitButton = document.querySelector("input[type=submit]");
+    newSubmitButton = replaceSubmitButton(submitButton) as HTMLInputElement;
+    newElement = createSelectionElement("tr", newSubmitButton);
+
     singleFormTable.parentElement?.insertAdjacentElement(
       "afterend",
       newElement,
@@ -43,10 +47,16 @@ export const evaluationForm = () => {
     if (newLocalStorage.length > 0) {
       chrome.runtime.sendMessage({ action: "data", data: newLocalStorage[0] });
     }
-    newSubmitButton.click();
+    newSubmitButton?.click();
   }
 
   const select = document.getElementById("select-values-form");
 
   select?.addEventListener("change", handleFormSelection);
+  newSubmitButton?.addEventListener("click", () => {
+    if (formLink) {
+      chrome.runtime.sendMessage({ action: "goFormPage", data: formLink });
+      removeLocalStorage("forms-link");
+    }
+  });
 };

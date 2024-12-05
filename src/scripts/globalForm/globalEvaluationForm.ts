@@ -1,6 +1,6 @@
 import type { ValueCheck } from "../utils/changeInputValues";
 import { getFormLinks } from "../utils/getDomElements";
-import { getLocalStorage } from "../utils/localStorage";
+import { getLocalStorage, removeLocalStorage } from "../utils/localStorage";
 import { createSelectionElement } from "../utils/newFormDomElement";
 import { handleAutoFormSelection } from "./handleAutoFormSelection";
 
@@ -20,13 +20,13 @@ export const globalEvaluationForm = () => {
   }
 
   const buttonSubmitt = document.querySelector(".extension-form__button");
-  // select-values-form
   const select = document.getElementById(
     "select-values-form",
   ) as HTMLSelectElement;
 
   buttonSubmitt?.addEventListener("click", (e) => {
     e.preventDefault();
+    removeLocalStorage("forms-link");
     const value = select.value as ValueCheck;
     if (value === "") return;
 
