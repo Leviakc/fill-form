@@ -19,10 +19,10 @@ const main = () => {
     const $input = $<HTMLInputElement>("input[type=submit]");
     const $links = Array.from($$<HTMLAnchorElement>("div#subnav table a")!);
     const $a = $links.find((link) => link.textContent === "Calificaciones");
-    if ($a) {
+    if ($a && $input) {
       setLocalStorage($a.href as unknown as Links, "forms-link");
+      $input?.click();
     }
-    $input?.click();
   }
 };
 main();
