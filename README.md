@@ -1,16 +1,12 @@
 # Fill-form
 
-Fill-form es una extension para ayudar a los alumnos del IPN a rellenar las evaluaciones
-para docentes que se hace cada semestre.
+Fill-form es una extension que ayuda a completar las evaluaciones de los
+profesores del IPN de forma rápida y sin complicaciones con el fin de ahorrar
+tiempo a los alumnos del IPN.
 
 # TODOS
 
 - [x] Terminar el popup de la extension
 - [x] Tener las distintas imagenes para distintos displays
 - [ ] Subir la extension a los distintos navegadores
-- [ ] Subir ejemplos
-
-> [!NOTE]
-> Por ver 👇
-
-- [ ] Hacer que la extension recuerde las respuestas de distintos navegadores
+- [x] Subir ejemplos
